@@ -658,10 +658,6 @@ def eliminar_libro():
         seleccion = tree.focus()
         datos = tree.item(seleccion)
         libro_id = datos['values'][0] 
-
-        
-
-
         
         resultado = eliminar_libro_db(libro_id)
         if resultado:        

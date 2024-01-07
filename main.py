@@ -1,7 +1,6 @@
 from view import main_loop
 from model import *
 
-
 try:
     conexion()
     crear_tabla_libros()    
@@ -44,20 +43,6 @@ try:
     agregar_editoriales()    
 except:
     print("Hay un error en el agregado de las editoriales o las mismos ya fueron creados anteriormente")
-
-
-    
-
-
-
-
-
-
-
-
-
-
-    
 
 main_loop()
 

@@ -406,7 +406,6 @@ def guardar_libro(nombre_libro, autor, editorial, anio, genero, comentario):
     finally:
         conn.close()  
 
-
 def guardar_mod_libro(nombre, libromod):
     conn = conexion()
     cursor = conn.cursor()
