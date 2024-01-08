@@ -1,14 +1,14 @@
 import sqlite3
-import re
+import tkinter as tk
+
 
 def conexion():
     conn = sqlite3.connect("base_librero.db")
     return conn
 
 
-def cargar_libros(tree):
 
-    
+def cargar_libros(tree):    
 
     conn = conexion()
     cursor = conn.cursor()
@@ -55,7 +55,6 @@ def crear_tabla_categorias():
     cursor.execute(sql1)
     conn.commit()
 
-
 def agregar_generos_literarios():
     conn = conexion()
     cursor = conn.cursor()
@@ -89,6 +88,7 @@ def agregar_editoriales():
             cursor.execute(sql, (editorial,))
     
     conn.commit()
+
 
 def crear_tabla_autores():
     conn = conexion()
@@ -148,7 +148,9 @@ def buscar_categorias():
     categorias_formateadas = [f"{categoria[0]} {categoria[1]}" for categoria in resultado] #CAMBIAR
 
     return categorias_formateadas
-
+    
+    
+    
 # Graba en la bd la nueva categoria
 def guardar_categoria(nombre_categoria):
     conn = conexion()
@@ -187,6 +189,8 @@ def borrar_categoria(nombre):
     except:
         conn.close()  
 
+
+
 def buscar_editorial(nombre_editorial):
     conn = conexion()
     cursor = conn.cursor()
@@ -208,7 +212,10 @@ def buscar_editoriales():
     editoriales_formateadas = [f"{editorial[0]} {editorial[1]}" for editorial in resultado] #CAMBIAR
 
     return editoriales_formateadas
-
+    
+    
+    
+# Graba en la bd la nueva editorial
 def guardar_editorial(nombre_editorial):
     conn = conexion()
     cursor = conn.cursor()
@@ -232,6 +239,7 @@ def guardar_mod_editorial(nombre, editorialmod):
         return 1        
     except:
         conn.close()  
+
 
 def borrar_editorial(nombre):
     conn = conexion()
@@ -268,7 +276,9 @@ def buscar_autores():
     
 
     return autores_formateados #CAMBIAR EN LOS OTROS CRUD
-
+    
+    
+    
 # Graba en la bd el nuevo autor
 def guardar_autor(nombre_autor):
     conn = conexion()
@@ -293,6 +303,7 @@ def guardar_mod_autor(nombre, autormod):
         return 1        
     except:
         conn.close()  
+
 
 def borrar_autor(nombre):
     conn = conexion()
@@ -367,7 +378,7 @@ def obtener_id_categoria(categoria):
     resultado = cursor.fetchone()
 
     return resultado    
-
+    
 # Graba en la bd el nuevo libro
 def guardar_libro(nombre_libro, autor, editorial, anio, genero, comentario):
     indice_espacio_autor = autor.find(' ')
@@ -406,6 +417,7 @@ def guardar_libro(nombre_libro, autor, editorial, anio, genero, comentario):
     finally:
         conn.close()  
 
+
 def guardar_mod_libro(nombre, libromod):
     conn = conexion()
     cursor = conn.cursor()
@@ -417,6 +429,7 @@ def guardar_mod_libro(nombre, libromod):
         return 1        
     except:
         conn.close()  
+
 
 def eliminar_libro_db(libro_id):
     
@@ -432,12 +445,3 @@ def eliminar_libro_db(libro_id):
     except:
         conn.close()
         return False
-
-    
-    
-    
-    
-    
-    
-
-

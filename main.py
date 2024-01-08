@@ -1,5 +1,7 @@
+
+from model import agregar_autores, agregar_editoriales, agregar_generos_literarios, conexion, crear_tabla_autores, crear_tabla_categorias, crear_tabla_editorial, crear_tabla_libros
 from view import main_loop
-from model import *
+
 
 try:
     conexion()
@@ -45,7 +47,3 @@ except:
     print("Hay un error en el agregado de las editoriales o las mismos ya fueron creados anteriormente")
 
 main_loop()
-
-
-
-

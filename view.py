@@ -1,7 +1,14 @@
 from tkinter import *
 from tkinter.messagebox import *
 from tkinter import Tk, ttk
-import tkinter as tk
+
+import re
+
+from model import borrar_autor, borrar_categoria, borrar_editorial, buscar_autor, buscar_autores, buscar_categoria, buscar_categorias, buscar_editorial, buscar_editoriales, buscar_libro, cargar_libros, eliminar_libro_db, guardar_autor, guardar_categoria, guardar_editorial, guardar_libro, guardar_mod_autor, guardar_mod_categoria, guardar_mod_editorial
+
+root = None #la declaro afuera para luego declararla global dentro del main loop para que la pueda tomar en el resto de las ventanas
+tree = None
+
 
 
 def limpiar_treeview(tree):
@@ -9,9 +16,8 @@ def limpiar_treeview(tree):
     for item in tree.get_children():
         tree.delete(item)
 
-
-
 def main_loop():
+    global root, tree #la declaro global para poder referenciarla luego desde otras ventanas
     root = Tk()
     root.title("Librero")
 
@@ -87,6 +93,7 @@ def main_loop():
 
     root.mainloop()
 
+
 # ventana para agregar una nueva categoria
 def nueva_categoria():    
     def guardar_categoriain():
@@ -130,9 +137,9 @@ def nueva_categoria():
     label_aviso = Label(top)  
     label_aviso.pack()  
 
-
 #Ventana para modificar categorias
 def modificar_categoria():
+    global root, tree
     nombre = None
     def guardar_modcategoriain(nombre):
         categoriamod = entry_nombre.get()  
@@ -193,7 +200,10 @@ def modificar_categoria():
     #### Label de notificación de mensajes
     label_aviso = Label(top)  
     label_aviso.pack()  
-    #### Label de notificación de mensajesdef eliminar_categoria():
+    #### Label de notificación de mensajes
+
+def eliminar_categoria():
+    global root, tree
     nombre = None
     def eliminar_categoriain(nombre):
         #categoriamod = entry_nombre.get()        
@@ -237,7 +247,9 @@ def modificar_categoria():
     label_aviso.pack()  
     #### Label de notificación de mensajes
 
-def nueva_editorial():    
+# ventana para agregar una nueva editorial
+def nueva_editorial():  
+    global root, tree  
     def guardar_editorialin():
         editorial = entry_editorial.get()
         
@@ -282,6 +294,7 @@ def nueva_editorial():
 
 #Ventana para modificar editorial
 def modificar_editorial():
+    global root, tree
     nombre = None
     def guardar_modeditorialin(nombre):
         editorialmod = entry_nombre.get()
@@ -339,7 +352,9 @@ def modificar_editorial():
     label_aviso.pack()  
     #### Label de notificación de mensajes
 
+
 def eliminar_editorial():
+    global root, tree
     nombre = None
     def eliminar_editorialin(nombre):
         #categoriamod = entry_nombre.get()        
@@ -385,6 +400,7 @@ def eliminar_editorial():
 
 # ventana para agregar un nuevo autor
 def nuevo_autor():    
+    global root, tree
     def guardar_autorin():
         autor = entry_autor.get()
 
@@ -428,6 +444,7 @@ def nuevo_autor():
 
 #Ventana para modificar autores
 def modificar_autor():
+    global root, tree
     nombre = None
     def guardar_modautorin(nombre):
         autormod = entry_nombre.get()  
@@ -492,6 +509,7 @@ def modificar_autor():
     label_aviso.pack()  
     #### Label de notificación de mensajes
 
+
 def eliminar_autor():
     nombre = None
     def eliminar_autorin(nombre):
@@ -538,6 +556,7 @@ def eliminar_autor():
 
 # ventana para agregar una nuevo libro
 def nuevo_libro():
+    global root, tree
     def guardar_libroin():
         libro = entry_libro.get()
         autor = combo_autores.get()
@@ -654,10 +673,12 @@ def nuevo_libro():
     label_aviso.pack()  
 
 def eliminar_libro():    
+    global root, tree
     def eliminar_libro_seleccionado():
         seleccion = tree.focus()
         datos = tree.item(seleccion)
         libro_id = datos['values'][0] 
+
         
         resultado = eliminar_libro_db(libro_id)
         if resultado:        
